@@ -18,9 +18,14 @@ require 'chef/handler'
 module SimpleReport
   class UpdatedResources < Chef::Handler
 
+    def initialize(line_prefix="  ")
+      super()
+      @line_prefix = line_prefix
+    end
+
     def report
       Chef::Log.info "Resources updated this run:"
-      run_status.updated_resources.each {|r| Chef::Log.info "  #{r.to_s}"}
+      run_status.updated_resources.each {|r| Chef::Log.info "#{line_prefix}#{r.to_s}"}
     end
   end
 end
