@@ -24,8 +24,12 @@ module SimpleReport
     end
 
     def report
-      Chef::Log.info "Resources updated this run:"
-      run_status.updated_resources.each {|r| Chef::Log.info "#{line_prefix}#{r.to_s}"}
+      if run_status.updated_resources
+        Chef::Log.info "Resources updated this run:"
+        run_status.updated_resources.each {|r| Chef::Log.info "#{@line_prefix}#{r.to_s}"}
+      else
+        Chef::Log.info "No Resources updated this run!"
+      end
     end
   end
 end
